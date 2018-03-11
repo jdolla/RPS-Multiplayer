@@ -1,16 +1,101 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/styles.css" />
-    
-    
+
+
 </head>
+
 <body>
-    
-    
+    <div id="header">
+        <h1>Rock, Paper, Scissors!!</h1>
+        <h3>... may the best muppet win.</h3>
+    </div>
+    <div id="avatar-selection">
+
+        <form id="avatar-form">
+            <span class="label">Enter your </span>
+            <input type="text" id="name-input" placeholder="name">, choose an avatar and then <a href="#" id="join-game">join a game</a>
+            <br>
+        </form>
+
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/beaker.jpg">
+                </div>
+            </div>
+        </label>
+
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/bunsen.jpg">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/gonzo.jpg">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/kermit.png">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/piggy.jpg">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/statler_waldorf.jpg">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/fozzy.jpg">
+                </div>
+            </div>
+        </label>
+        <label class="avatar-radio">
+            <input type="radio" name="avatar">
+            <div class="avatar-frame">
+                <div class="avatar-border">
+                    <img class="avatar-pic" src="./assets/images/constantine.png">
+                </div>
+            </div>
+        </label>
+
+    </div>
+    <div id="game-room">
+        Game Room
+    </div>
+
+
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
     <script src="./assets/js/app.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,106 @@
+@font-face{
+    font-family: muppets;
+    src: url("../fonts/Muppets.ttf")
+}
+
+body {
+    font-family: muppets;
+}
+
+#avatar-form {
+    margin: 10px;
+}
+
+#header {
+    background-color: #9EA82F;
+    color: #A51C18;
+
+    padding: 5px;
+    margin: 5px auto 0px auto;
+    border: 2px solid #A51C18;
+    max-width: 98%;
+    text-align: center;
+}
+
+#header h1 {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+#avatar-selection {
+    margin: 10px auto 10px auto;
+    text-align: center;
+    max-width: 900px;
+    font-size: 24px;
+}
+
+#name-input {
+    border: none;
+    font-size: 28px;
+    text-align: center;
+    background-color: rgb(194, 206, 62);
+    border-radius: 10px;
+    font-family: muppets;
+    opacity: .8;
+}
+#name-input:focus {
+    outline: none;
+}
+#join-game {
+    text-decoration: none;
+    color: #A51C18;
+    font-weight: bold;
+    background-color: #9EA82F;
+    padding: 3px 8px;
+    border-radius: 10px;
+    border: 2px solid #A51C18;
+}
+
+label > input {
+    visibility: hidden;
+    position: absolute;
+}
+
+label > input + div {
+    cursor: pointer;
+}
+
+label > input:checked + div {
+    background-color: #9EA82F;
+}
+
+label > input:checked + div > div {
+    border-color: #A51C18;
+}
+
+.avatar-frame {
+    display: inline-block;
+    vertical-align: top;
+
+    background-color: #A51C18;
+
+    padding: 10px;
+    border-radius: 10px;
+    margin: 3px;
+    
+    height: 205px;
+    width: 180px;
+}
+
+
+.avatar-border {
+    border: 3.5px solid #9EA82F;
+    height: 200px;
+    width: 175px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: relative;
+}
+
+.avatar-pic {
+    width: 150px;
+    position: absolute;
+    bottom: 0px;
+    left: 12.5px;
+    border-radius: 10px;
+}
