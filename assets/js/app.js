@@ -1,11 +1,10 @@
-function connect() {
+function connect(player) {
 
     if (game.player) {
         console.log("You're already connected");
         return;
     }
 
-    const player = getPlayer();
     if (!player) {
         console.log("No Playa");
         return;
@@ -59,36 +58,16 @@ function connected() {
     return result;
 }
 
-function getPlayer() {
-    // name = document.getElementById("playerName-input").value;
-    // avatar = null // TODO: Add Avatar
 
-    name = "jason";
-    avatar = "meep";
-
-    if (!name) {
-        return null;
-    }
-
-    if (!avatar) {
-        return null;
-    }
-
-    return {
-        name: `${name}`,
-        avatar: `${avatar}`
-    };
-}
-
-function startGame(){
+function startGame() {
     console.log("start game");
 }
 
-function resetGame(){
+function resetGame() {
     console.log("reset game");
 }
 
-function playerLost(){
+function playerLost() {
     console.log("player lost");
     resetGame();
 }
@@ -96,18 +75,44 @@ function playerLost(){
 function trackPlayers() {
     const playersRef = db.ref('game/players');
     playersRef.on("value", function (s) {
-        
+
         const pc = s.numChildren();
         if (pc === 2) {
             startGame()
-        } else if(pc < 2 && game.playerCount === 2) {
-           playerLost();
+        } else if (pc < 2 && game.playerCount === 2) {
+            playerLost();
         }
         game.playerCount = s.numChildren();
-        
+
     });
     game.playersRef = playersRef;
 }
+
+
+document.getElementById("join-game").addEventListener("click", function (event) {
+
+    const selected = document.querySelector('input[name=avatar]:checked');
+    if (!selected) {
+        alert("Choose an avatar!");
+        return;
+    }
+
+    const name = document.getElementById("name-input").value;
+    if (!name) {
+        alert("Enter a name!");
+        return;
+    }
+
+    const avatar = selected.parentNode.getElementsByTagName('img')[0].getAttribute("src");
+
+    const player = {
+        name: `${name}`,
+        avatar: `${avatar}`
+    };
+
+    connect(player);
+});
+
 
 var game = {
     player: "",
