@@ -26,10 +26,12 @@ function joinGame(player) {
             game.player = playerRef.toString();
             playerRef.onDisconnect().remove();
 
+            document.querySelector("#player>div>div>img").setAttribute("src", player.avatar);
+
             trackPlayers();
 
         } else {
-            console.log("too busy");
+            alert("Servers are busy.  Try again in a bit.");
         }
 
     });
@@ -59,8 +61,9 @@ function connected() {
 }
 
 
-function startGame() {
-    console.log("start game");
+function startGame(opponent) {
+    document.querySelector("#opponent img").setAttribute("src", opponent.avatar);
+    document.getElementById("opponent-name").innerText = opponent.name;
 }
 
 function resetGame() {
@@ -68,7 +71,9 @@ function resetGame() {
 }
 
 function playerLost() {
-    console.log("player lost");
+    document.querySelector("#opponent img").setAttribute("src", "./assets/images/beaker_question.jpg");
+    document.getElementById("opponent-name").innerText = "?";
+    
     resetGame();
 }
 
@@ -78,7 +83,20 @@ function trackPlayers() {
 
         const pc = s.numChildren();
         if (pc === 2) {
-            startGame()
+
+            const curPlayer = game.player.substr(game.player.lastIndexOf("/") + 1);
+            const allPlayers = s.toJSON();
+            
+            let opponentKey = "";
+            for (let key in allPlayers){
+                if(key != curPlayer){
+                    opponentKey = key;
+                    break;
+                }
+            }
+
+            startGame(allPlayers[opponentKey]);
+
         } else if (pc < 2 && game.playerCount === 2) {
             playerLost();
         }

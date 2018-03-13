@@ -133,3 +133,104 @@ label > input:checked + div > div {
     left: 12.5px;
     border-radius: 10px;
 }
+
+
+#container {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    height: 310px;
+}
+
+#game-room {
+
+    margin: 5px auto 5px auto;
+    max-width: 900px;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    background-color: #A51C18;
+}
+
+#player {
+    padding-left: 20px;
+}
+
+#opponent {
+    padding-right: 20px;
+}
+
+#opponent > .player-bundle > .player-frame {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+#player > .player-bundle > .player-frame {
+    margin-right: auto;
+    margin-left: 20px;
+}
+
+#opponent-name {
+    width: 175px;
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.player-bundle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.player-frame {
+    border: 5px solid #9EA82F;
+    height: 200px;
+    width: 175px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    position: relative;
+}
+
+.player-pic {
+    width: 150px;
+    position: absolute;
+    bottom: 0px;
+    left: 12.5px;
+    border-radius: 10px;
+}
+
+#ammo-box {
+    width: 175px;
+    margin-left: 25px;
+    text-align: center;
+}
+
+.ammo {
+    width: 45px;
+    margin: 2px;
+    opacity: .7;
+    vertical-align: bottom;
+}
+
+.ammo:hover {
+    cursor: pointer;
+    width: 47px;
+    opacity: 1;
+}
+
+#chat {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    text-align: center;
+}
+
+#chat {
+    background-color: #9EA82F;
+    width: 90%;
+    margin: 10px auto;
+    padding: 5px;
+    height: 200px;
+    border-radius: 10px;
+}
