@@ -105,6 +105,14 @@ function startGame(opponent) {
 function resetMatch() {
     game.match.remove();
     time.innerText = 10;
+
+    mc.style.display = "none";
+    op.style.display = "none";
+    
+    mc.setAttribute("src", "#");
+    op.setAttribute("src", "#");
+
+    announce.innerText = "";
 }
 
 function evaluate(){
@@ -117,20 +125,24 @@ function evaluate(){
         if(r){
             if(r.hasOwnProperty(game.opponent)){
                 opponentChoice = r[game.opponent].choice;
-                let op = document.getElementById("op-choice choice");
                 op.setAttribute("src", r[game.opponent].choiceUrl);
                 op.style.display = "inline-block";
             }
 
             if(r.hasOwnProperty(game.player)){
                 myChoice = r[game.player].choice;
-                let mc = document.getElementById("mc-choice choice");
                 mc.setAttribute("src", r[game.player].choiceUrl);
                 mc.style.display = "inline-block";
             }
         }
 
        outcome = rps(myChoice, opponentChoice);
+
+       if(outcome === "tie"){
+           announce.innerText = "It's a Tie!";
+       } else {
+           announce.innerText = `You ${outcome}!!`;
+       }
 
     });
 }
@@ -273,6 +285,9 @@ firebase.initializeApp(config);
 const db = firebase.database();
 const time = document.getElementById("time");
 var gameInterval = null;
+const op = document.getElementById("op-choice");
+const mc = document.getElementById("mc-choice");
+const announce = document.getElementById("announce");
 
 const ammoBtns = document.querySelectorAll(".ammo");
 for (let i = 0; i < ammoBtns.length; i++) {

@@ -251,3 +251,11 @@ label > input:checked + div > div {
 #counter {
     margin: 20px;
 }
+
+.choice {
+    width: 100px;
+    margin: 2px;
+    opacity: .7;
+    vertical-align: bottom;
+    display: none;
+}
