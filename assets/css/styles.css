@@ -48,11 +48,15 @@ body {
 .right-item{
     text-align: right;
 }
+
 #avatar-selection {
     margin: 10px auto 10px auto;
     text-align: center;
     max-width: 900px;
     font-size: 24px;
+    opacity: 1;
+    display: inherit;
+    transition: opacity .5s ease;
 }
 
 #name-input {
@@ -142,12 +146,14 @@ label > input:checked + div > div {
 }
 
 #game-room {
-
     margin: 5px auto 5px auto;
     max-width: 900px;
     border-radius: 10px;
     padding-bottom: 15px;
     background-color: #A51C18;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease;
 }
 
 #player {
@@ -233,4 +239,15 @@ label > input:checked + div > div {
     padding: 5px;
     height: 200px;
     border-radius: 10px;
+}
+
+#battle-field {
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    
+}
+
+#counter {
+    margin: 20px;
 }

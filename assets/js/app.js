@@ -23,12 +23,31 @@ function joinGame(player) {
         if (childCount < 2) {
 
             const playerRef = playersRef.push(player);
-            game.player = playerRef.toString();
+            game.player = playerRef.toString().substr(playerRef.toString().lastIndexOf("/") + 1);
+     
             playerRef.onDisconnect().remove();
+
+
+            game.match = match = db.ref(`match/${game.player}`);
+            game.match.onDisconnect().remove();
 
             document.querySelector("#player>div>div>img").setAttribute("src", player.avatar);
 
             trackPlayers();
+
+            const avatarSelection = document.getElementById("avatar-selection");
+            const gameRoom = document.getElementById("game-room");
+            window.setTimeout(function(){
+                avatarSelection.style.opacity = 0;
+                window.setTimeout(function(){
+                    avatarSelection.style.display = "none";
+                    gameRoom.style.display = "inherit";
+                    window.setTimeout(function(){
+                        gameRoom.style.opacity = 1;
+                    }, 200)
+                }, 500)
+            }, 0)
+
 
         } else {
             alert("Servers are busy.  Try again in a bit.");
@@ -60,83 +79,185 @@ function connected() {
     return result;
 }
 
+function countDown(){
+    gameInterval = setInterval(function(){
+        let secs = parseInt(time.innerText);  
+        if(secs > 0 ){
+            time.innerText = secs - 1;
+        }
+        else {
+            clearInterval(gameInterval)
+            evaluate();
+            countDown();
+            setTimeout(function(){
+                resetMatch();
+            }, 3000);
+        }
+    }, 1000);
+}
 
 function startGame(opponent) {
     document.querySelector("#opponent img").setAttribute("src", opponent.avatar);
     document.getElementById("opponent-name").innerText = opponent.name;
+    countDown();
 }
 
-function resetGame() {
-    console.log("reset game");
+function resetMatch() {
+    game.match.remove();
+    time.innerText = 10;
+}
+
+function evaluate(){
+    const plays = db.ref("match");
+    plays.once("value", function(s){
+        const r = s.toJSON();
+        let myChoice = "";
+        let opponentChoice = "";
+
+        if(r){
+            if(r.hasOwnProperty(game.opponent)){
+                opponentChoice = r[game.opponent].choice;
+                let op = document.getElementById("op-choice choice");
+                op.setAttribute("src", r[game.opponent].choiceUrl);
+                op.style.display = "inline-block";
+            }
+
+            if(r.hasOwnProperty(game.player)){
+                myChoice = r[game.player].choice;
+                let mc = document.getElementById("mc-choice choice");
+                mc.setAttribute("src", r[game.player].choiceUrl);
+                mc.style.display = "inline-block";
+            }
+        }
+
+       outcome = rps(myChoice, opponentChoice);
+
+    });
+}
+
+function rps(me, opponent){
+    if(me === opponent){
+        return "tie";
+    }
+
+    if(me === ""){
+        return "lose";
+    }
+
+    if(opponent === ""){
+        return "win";
+    }
+
+    if(me === "rock"){
+        if(opponent === "paper"){
+            return "lose";
+        } else{
+            return "win";
+        }
+    }
+    
+    if(me === "scissors"){
+        if(opponent === "rock"){
+            return "lose";
+        }
+        else {
+            return "win";
+        }
+    }
+
+    if(me === "paper"){
+        if(opponent === "scissors"){
+            return "lose";
+        }
+        else {
+            return "win";
+        }
+    }
+
 }
 
 function playerLost() {
     document.querySelector("#opponent img").setAttribute("src", "./assets/images/beaker_question.jpg");
     document.getElementById("opponent-name").innerText = "?";
-    
-    resetGame();
+    game.opponent = "";
+    clearInterval(gameInterval);
+    resetMatch();
 }
 
 function trackPlayers() {
     const playersRef = db.ref('game/players');
     playersRef.on("value", function (s) {
-
         const pc = s.numChildren();
         if (pc === 2) {
-
-            const curPlayer = game.player.substr(game.player.lastIndexOf("/") + 1);
+            
             const allPlayers = s.toJSON();
             
-            let opponentKey = "";
             for (let key in allPlayers){
-                if(key != curPlayer){
-                    opponentKey = key;
+                if(key != game.player){
+                    game.opponent = key;
                     break;
                 }
             }
-
-            startGame(allPlayers[opponentKey]);
-
+            startGame(allPlayers[game.opponent]);
+            
         } else if (pc < 2 && game.playerCount === 2) {
             playerLost();
         }
         game.playerCount = s.numChildren();
-
+        
     });
     game.playersRef = playersRef;
 }
 
-
 document.getElementById("join-game").addEventListener("click", function (event) {
-
+    
     const selected = document.querySelector('input[name=avatar]:checked');
     if (!selected) {
         alert("Choose an avatar!");
         return;
     }
-
+    
     const name = document.getElementById("name-input").value;
     if (!name) {
         alert("Enter a name!");
         return;
     }
-
+    
     const avatar = selected.parentNode.getElementsByTagName('img')[0].getAttribute("src");
-
+    
     const player = {
         name: `${name}`,
         avatar: `${avatar}`
     };
-
+    
     connect(player);
 });
+
+function ammoClick(){
+    play.myItem = this.getAttribute("data-item");
+    play.myItemUrl = this.getAttribute("src");
+    game.match.child("choice").set(`${play.myItem}`);
+    game.match.child("choiceUrl").set(`${play.myItemUrl}`);
+}
+
+
+
+/*************************************************************/
 
 
 var game = {
     player: "",
+    opponent: "",
     playerCount: 0,
-    playersRef: null
+    playersRef: null,
+    match: null
 }
+
+var play = {
+    myItem: null,
+    myPlay: null,
+    myItemUrl: null
+};
 
 // Initialize Firebase
 var config = {
@@ -150,3 +271,10 @@ var config = {
 
 firebase.initializeApp(config);
 const db = firebase.database();
+const time = document.getElementById("time");
+var gameInterval = null;
+
+const ammoBtns = document.querySelectorAll(".ammo");
+for (let i = 0; i < ammoBtns.length; i++) {
+    ammoBtns[i].addEventListener("click", ammoClick);
+}
