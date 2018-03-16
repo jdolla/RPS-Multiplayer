@@ -253,9 +253,98 @@ label > input:checked + div > div {
 }
 
 .choice {
-    width: 100px;
+    width: 75px;
     margin: 2px;
     opacity: .7;
     vertical-align: bottom;
     display: none;
+}
+
+#announce {
+    min-width: 50px;
+    margin-bottom: 5px;
+}
+
+#choices {
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 110px;
+}
+
+#restart {
+    vertical-align: center;
+    text-decoration: none;
+    color: #A51C18;
+    font-weight: bold;
+    background-color: #9EA82F;
+    padding: 4.25px 72px;
+    border-radius: 10px;
+    border: 2px solid #A51C18;
+}
+
+.results {
+    display: none;
+}
+
+
+#comment-input {
+    outline: none;
+
+    width: 98%;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    border-radius: 10px;
+    border: 2px solid #A51C18;
+
+    font-family: muppets;
+    font-weight: normal;
+    font-size: 18px;
+
+    color: #A51C18;
+    background-color: #9EA82F;
+    text-align: left;
+    margin-top: 5px;
+}
+
+#comment-input:focus {
+    outline: none;
+}
+
+#messages {
+    margin-top: 5px;
+}
+
+.message {
+    width: 98%;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+
+    font-family: muppets;
+    font-weight: normal;
+    font-size: 18px;
+
+    color: #A51C18;
+    text-align: left;
+}
+
+.player-message {
+    background-color: #888e44;
+}
+
+.opponent-message {
+    background-color: #5c9c2b;
+}
+
+.first {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.last {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }

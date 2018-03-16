@@ -120,12 +120,15 @@
                     </div>
                 </div>
                 <div id="choices">
-                    <img src="#" id="mc-choice" class="mc-choice choice">
-                    <img src="#" id="op-choice" class="op-choice choice">
+                    <div>
+                        <img src="#" id="mc-choice" class="mc-choice choice">
+                    </div>
+                    <div>
+                        <img src="#" id="op-choice" class="op-choice choice">
+                    </div>
                 </div>
-                <div id="announce">
-                    
-                </div>
+                <div id="announce" class="results"></div>
+                <a id="restart" href="#" class="results">Again!</a>
             </div>
 
             <div id="opponent">
@@ -138,7 +141,12 @@
             </div>
         </div>
         <div id="chat">
-            chat room
+            <form name="chat-form">
+                <input type="text" id="comment-input" placeholder="say someting..." maxlength="100">
+                <input type="submit" id="submit-btn" style="display:none">
+            </form>
+            <div id="messages">
+            </div>
         </div>
     </div>
 
